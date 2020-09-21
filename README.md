@@ -2,7 +2,7 @@
 
 ### Keeping Web Applications Easy
 
-This project introduces an unopinionated implementation for automatic re-rendering of React components when an observed object instance is mutated.
+This project introduces a tiny, unopinionated implementation for the automatic re-rendering of React components when an observed object instance is mutated.
 
 <img align="left" src="https://img.shields.io/bundlephobia/minzip/@alshdavid/reactive" />
 <img align="left" src="https://img.shields.io/badge/dependencies-0-success" />
