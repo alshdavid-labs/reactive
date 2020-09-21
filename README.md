@@ -47,6 +47,16 @@ This decoupling also encourages engineers to write their applications using a fr
 
 This library uses a similar method to Vue, patching the original object instances to listen for changes but it also incorporates Proxies.
 
+## Install
+
+```shell
+# npm
+npm install --save @alshdavid/reactive
+
+# yarn
+yarn add @alshdavid/reactive
+```
+
 ## Usage 
 
 It all starts with the `VM` hook:
