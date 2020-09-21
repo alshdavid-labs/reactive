@@ -4,9 +4,11 @@
 
 This project introduces an unopinionated implementation for automatic re-rendering of React components when an observed object instance is mutated.
 
-<img src="https://img.shields.io/bundlephobia/minzip/@alshdavid/reactive" >
-<img src="https://img.shields.io/badge/dependencies-0-success" >
-<img src="https://img.shields.io/npm/v/@alshdavid/reactive" >
+<p>
+  <img align="left" src="https://img.shields.io/bundlephobia/minzip/@alshdavid/reactive" >
+  <img align="left" src="https://img.shields.io/badge/dependencies-0-success" >
+  <img align="left" src="https://img.shields.io/npm/v/@alshdavid/reactive" >
+</p>
 
 ```javascript
 import React from 'react';
