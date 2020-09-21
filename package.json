@@ -1,6 +1,6 @@
 {
   "name": "@alshdavid/reactive",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "Generic object mutation observation",
   "main": "index.js",
   "types": "index.d.ts",
@@ -8,10 +8,10 @@
   "license": "MIT",
   "scripts": {
     "build": "yarn clean && yarn compile && yarn optimize",
-    "clean": "rm -r -f *.js *.d.ts",
+    "clean": "rm -r -f *.js *.d.ts *.gz *.br",
     "compile": "npx tsc",
     "optimize": "npx terser --compress  --module --mangle --output create.js create.js",
-    "size": "du --apparent-size -a -b *.js"
+    "size": "du --apparent-size -a -b"
   },
   "keywords": [
     "object.observe"

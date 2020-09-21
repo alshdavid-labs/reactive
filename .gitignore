@@ -1,5 +1,7 @@
 *.js
 *.d.ts
+*.gz
+*.br
 
 # Logs
 logs

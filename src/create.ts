@@ -147,11 +147,11 @@ export type DisposeFn = () => void
 export const observe = <T,>(
   source: T, 
   cb: (value: T) => void,
-  watch: Array<() => any> = []
+  watch: Array<(value: T) => any> = []
 ): DisposeFn => {
   const watchCache: any[] = []
   for (const cb of watch) {
-    watchCache.push(cb())
+    watchCache.push(cb(source))
   }
   const _source: any = source
   const state: State = _source[KEY]
@@ -161,7 +161,7 @@ export const observe = <T,>(
       return
     }
     for (let i = 0; i < watch.length; i++) {
-      const update = watch[i]()
+      const update = watch[i](source)
       if (watchCache[i] !== update) {
         watchCache[i] = update
         cb(source)
