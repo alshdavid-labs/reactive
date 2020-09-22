@@ -57,15 +57,15 @@ npm install --save @alshdavid/reactive
 yarn add @alshdavid/reactive
 ```
 
-## Usage 
-
-It all starts with the `VM` hook:
-
-### Playgrounds
+## Playgrounds
 
 [StackBlitz - Simple React Demo](https://stackblitz.com/edit/reactive-with-react-simple?file=index.tsx)
 <br>
 [StackBlitz - React Demo with Dependency Injection](https://stackblitz.com/edit/reactive-with-react-dep-inj?file=app/home-page.tsx)
+
+## Usage 
+
+It all starts with the `VM` hook:
 
 ### React
 
