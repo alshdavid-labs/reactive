@@ -61,6 +61,12 @@ yarn add @alshdavid/reactive
 
 It all starts with the `VM` hook:
 
+### Playgrounds
+
+[StackBlitz - Simple React Demo](https://stackblitz.com/edit/reactive-with-react-simple?file=index.tsx)
+<br>
+[StackBlitz - React Demo with Dependency Injection](https://stackblitz.com/edit/reactive-with-react-dep-inj?file=app/home-page.tsx)
+
 ### React
 
 ```javascript
@@ -159,13 +165,13 @@ dispose()
 
  A pillar of this project is enabling the testing of front end projects in a way that decouples them from the DOM.
 
- While the presentational framework deals with the rendering concerns; the application, its events and methods should aptly represent the service without a rendered representation.
+ While the presentational framework deals with the rendering concerns; the application, its events and methods should aptly represent the aplication without a rendered representation.
 
  This approach allows you to initialize an entire application in memory, say in Node, without requiring a DOM implementation.
 
  The testing of the presentation layer can occur in a separate suite of tests.
 
- For example, say we have the following component and it's view model:
+ For example, say we have the following component and its view model:
 
 ```javascript
 export class AppComponent {
@@ -210,6 +216,7 @@ describe('AppComponent', () => {
       expect(testFunc).not.toThrow()
     })
   })
+  
   describe('inc', () => {
     it('Should increment the value', () => {
       const appComponent = new AppComponent()
@@ -217,6 +224,7 @@ describe('AppComponent', () => {
       expect(appComponent.value).toBe(1)
     })
   })
+  
   describe('dec', () => {
     it('Should decrement the value', () => {
       const appComponent = new AppComponent()
