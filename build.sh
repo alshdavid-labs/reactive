@@ -1,4 +1,4 @@
-rm -r -f *.js *.d.ts *.gz *.br
+rm -r -f *.js *.d.ts *.gz *.br reactive
 npx tsc
 
 compress() {
@@ -11,3 +11,4 @@ compress react.js
 compress reactive/merge.js
 compress reactive/observable.js
 compress reactive/subject.js
+compress reactive/subscription.js

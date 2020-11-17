@@ -16,5 +16,7 @@
     "outDir": ".",
     "declarationDir": ".",
     "declaration": true
-  }
+  },
+  "include": ["./"],
+  "exclude": []
 }

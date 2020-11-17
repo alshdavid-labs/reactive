@@ -80,19 +80,6 @@ export const create = <T>(source: T): T => {
     })  
   }
 
-  Object.defineProperty(source, 'toJSON', {
-    enumerable: false,
-    value: function () {
-      var result: any = {};
-      for (var x in this) {
-        if (x !== KEY) {
-          result[x] = this[x];
-        }
-      }
-      return result;
-    }
-  })
-
   return source 
 }
  
