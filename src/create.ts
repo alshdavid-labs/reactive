@@ -1,30 +1,30 @@
 type Callback<T = any> = (value: T) => void
 
 interface Subscription {
-  u: () => void
+  unsubscribe: () => void
 }
 
-class S<T> {
+class Subject<T> {
   private _s: Callback<T>[] = []
 
-  s(cb: Callback<T>): Subscription {
+  subscribe(cb: Callback<T>): Subscription {
     this._s.push(cb)
     return {
-      u: () => this._s = this._s.filter(v => v !== cb)
+      unsubscribe: () => this._s = this._s.filter(v => v !== cb)
     }
   }
 
-  n(value: T) {
+  next(value: T) {
     for (const cb of this._s) {
       cb(value)
     }
   }
 }
 
-const KEY = '[[ReactiveState]]'
+const KEY = '__ReactiveState__'
 
 export type State = {
-  onChange: S<void>
+  onChange: Subject<void>
   children: Array<State>
   patched: string[]
 }
@@ -34,7 +34,7 @@ export const create = <T,>(source: T): T => {
     return watch(source, source, (source as any)[KEY])
   }
   const state: State = {
-    onChange: new S(),
+    onChange: new Subject(),
     children: [],
     patched: []
   }
@@ -60,7 +60,7 @@ export const create = <T,>(source: T): T => {
 }
 
 const notify = (state: State) => {
-  state.onChange.n()
+  state.onChange.next()
   for (const child of state.children) {
     notify(child)
   }
@@ -82,20 +82,27 @@ const watchArray = (
   source: any, 
   node: State,
 ):any => {
-  const result = new Proxy<any>(source, {
-    get(target, prop) {
-      if (Array.isArray(target[prop])) {
-        return watchArray(rootSource, target[prop], node)
-      } else if (typeof target[prop] === 'object') {
-        return watchObject(rootSource, target[prop], node)
-      }
-      return target[prop]
-    },
+  const $source = new Array(source.length)
+  for (let i = 0; i < source.length; i++) {
+    if (Array.isArray(source[i])) {
+      $source[i] = watchArray(rootSource, source[i], node)
+    } else if (typeof source[i] === 'object') {
+      $source[i] = watchObject(rootSource, source[i], node)
+    }
+  }
+  const result = new Proxy<any>($source, {
     set(target, propKey, value) {
       if (target[propKey] === value) {
         return true;
       }
-      target[propKey] = value; 
+      if (Array.isArray(value)) {
+        target[propKey] = watchArray(rootSource, value, node)
+      } else if (typeof value === 'object') {
+        target[propKey] = watchObject(rootSource, value, node)
+        console.log(1, target[propKey])
+      } else {
+        target[propKey] = value
+      }
       notify(node)
       return true
     },
@@ -155,7 +162,7 @@ export const observe = <T,>(
   }
   const _source: any = source
   const state: State = _source[KEY]
-  const subscription = state.onChange.s(() => {
+  const subscription = state.onChange.subscribe(() => {
     if (watch.length === 0) {
       cb(source)
       return
@@ -169,5 +176,5 @@ export const observe = <T,>(
       }
     }
   })
-  return () => subscription.u()
+  return () => subscription.unsubscribe()
 }
