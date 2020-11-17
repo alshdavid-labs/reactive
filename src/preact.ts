@@ -29,7 +29,10 @@ export const useViewModel: ViewModelHook = (
     }
   // eslint-disable-next-line
   }, [])
-  useEffect(() => observe(vm, () => forceUpdate(s => !s), watch))
+  useEffect(() => {
+    const sub = observe(vm).subscribe(() => forceUpdate(s => !s))
+    return () => sub.unsubscribe()
+  }, watch)
   return vm
 }
 
