@@ -1,3 +1,10 @@
+/preact
+/react
+/reactive
+/rxjs
+
+!/src/**/*
+
 *.js
 *.d.ts
 *.gz

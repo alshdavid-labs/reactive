@@ -1,4 +1,4 @@
-export * from './observable';
-export * from './subject';
-export * from './merge';
-export * from './subscription';
+export * from './index.barrel'
+import * as Reactive from './index.barrel'
+export { Reactive }
+export default Reactive

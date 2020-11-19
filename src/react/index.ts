@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useState } from 'preact/hooks';
-import { create, observe } from './create'
+import { useEffect, useMemo, useState } from 'react';
+import { create, observe } from '../reactive'
 
 const isConstructor = (f: any): boolean => {
   try {
@@ -18,7 +18,6 @@ export type ViewModelHook = {
 export const useViewModel: ViewModelHook = (
   ctor: any,
   args: any[] = [], 
-  watch: any[] = [],
 ) => {
   const [, forceUpdate] = useState(false);
   const vm = useMemo(() => {
@@ -30,9 +29,17 @@ export const useViewModel: ViewModelHook = (
   // eslint-disable-next-line
   }, [])
   useEffect(() => {
+    if (vm.onInit) {
+      vm.onInit()
+    }
     const sub = observe(vm).subscribe(() => forceUpdate(s => !s))
-    return () => sub.unsubscribe()
-  }, watch)
+    return () => {
+      sub.unsubscribe()
+      if (vm.onDestroy) {
+        vm.onDestroy()
+      }
+    }
+  }, [window])
   return vm
 }
 

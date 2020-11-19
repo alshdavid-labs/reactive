@@ -1,3 +1,1 @@
-import * as Reactive from './create'
-export { Reactive }
-export default Reactive
+export * from './reactive/index'
