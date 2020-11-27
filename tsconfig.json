@@ -20,5 +20,14 @@
   "include": [
     "src"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules",
+    "index.js",
+    "index.d.ts",
+    "preact/**/*",
+    "react/**/*.d.ts",
+    "react/**/*.js",
+    "reactive/**/*",
+    "rxjs/**.*"
+  ]
 }
