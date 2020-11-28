@@ -1,5 +1,5 @@
-import { Subscriber } from '../rxjs'
-import { pipe, filter, map } from '../rxjs/operators'
+import { Subscriber } from '@alshdavid/rxjs'
+import { pipe, filter, map } from '@alshdavid/rxjs/operators'
 import { ChangeEventType, KEY, state } from './state'
 
 export const observe = (target: any): Subscriber<void> => {

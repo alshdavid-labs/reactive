@@ -1,0 +1,18 @@
+{
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "preact": true,
+    "react": true,
+    "reactive": true,
+    "rxjs": true,
+    "index.d.ts": true,
+    "jest.config.js": true,
+    "index.js": true,
+    "**/.vscode": true,
+    "**/node_modules": true
+  }
+}

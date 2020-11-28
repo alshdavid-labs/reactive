@@ -1,4 +1,4 @@
-import { Subject } from "../rxjs";
+import { Subject } from "@alshdavid/rxjs";
 
 export enum ChangeEventType {
   Update,

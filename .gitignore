@@ -1,16 +1,6 @@
-/preact
-/react
-/reactive
-/rxjs
+/dist
 
-!/src/**/*
-
-*.js
-*.d.ts
-*.gz
-*.br
-
-# Logs
+.DS_Store
 logs
 *.log
 npm-debug.log*

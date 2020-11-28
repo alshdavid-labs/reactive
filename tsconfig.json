@@ -13,20 +13,20 @@
     "resolveJsonModule": true,
     "isolatedModules": false,
     "baseUrl": ".",
-    "outDir": ".",
-    "declarationDir": ".",
-    "declaration": true
+    "outDir": "dist",
+    "declarationDir": "dist",
+    "declaration": true,
+    "types": []
   },
   "include": [
-    "src"
+    "src/**/*"
   ],
   "exclude": [
     "node_modules",
     "index.js",
     "index.d.ts",
     "preact/**/*",
-    "react/**/*.d.ts",
-    "react/**/*.js",
+    "react/**/*",
     "reactive/**/*",
     "rxjs/**.*"
   ]
