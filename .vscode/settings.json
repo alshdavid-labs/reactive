@@ -1,18 +1,18 @@
 {
   "files.exclude": {
-    "**/.git": true,
-    "**/.svn": true,
-    "**/.hg": true,
-    "**/CVS": true,
-    "**/.DS_Store": true,
-    "preact": true,
-    "react": true,
-    "reactive": true,
-    "rxjs": true,
-    "index.d.ts": true,
-    "jest.config.js": true,
-    "index.js": true,
-    "**/.vscode": true,
-    "**/node_modules": true
+    "**/.git": false,
+    "**/.svn": false,
+    "**/.hg": false,
+    "**/CVS": false,
+    "**/.DS_Store": false,
+    "preact": false,
+    "react": false,
+    "reactive": false,
+    "rxjs": false,
+    "index.d.ts": false,
+    "jest.config.js": false,
+    "index.js": false,
+    "**/.vscode": false,
+    "**/node_modules": false
   }
 }

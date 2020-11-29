@@ -14,4 +14,4 @@ publish:
 	cd dist && npm publish --access public
 
 test:
-	npx jest ./tests --passWithNoTests  --coverage
+	npx jest --passWithNoTests  --coverage
