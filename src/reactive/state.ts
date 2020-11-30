@@ -1,4 +1,4 @@
-import { Subject } from "@alshdavid/rxjs";
+import { Subject, Observable } from "@alshdavid/rxjs";
 
 export enum ChangeEventType {
   Update,
@@ -17,7 +17,7 @@ export class ChangeEvent {
 export class State {
   public onEvent = new Subject<ChangeEvent>()
   public ignoreList: any[] = []
-  public ignoreInstanceOfList: any[] = []
+  public ignoreInstanceOfList: any[] = [Observable]
 
   pushEvent(changeEvent: ChangeEvent): void {
     setTimeout(() => this.onEvent.next(changeEvent))
