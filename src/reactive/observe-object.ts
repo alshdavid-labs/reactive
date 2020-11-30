@@ -14,7 +14,8 @@ export const patchInstance = (instance: any, nodes: number[]) => {
   for (const key in instance) {
     if (
       state.isIgnored(instance[key]) ||
-      typeof instance[key] !== 'object'  
+      typeof instance[key] !== 'object' ||
+      !instance[key] 
     ) {
       continue
     } 

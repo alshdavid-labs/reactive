@@ -22,11 +22,11 @@ export const useViewModel: ViewModelHook = (
   const [, forceUpdate] = useState(false);
   const vm = useMemo(() => {
     if (isConstructor(ctor)) {
-      return create(new (ctor as any)(...(args || [])))
+      const $Ctor: any = create(ctor)
+      return new $Ctor(...args)
     } else {
       return create((ctor as any)())
     }
-  // eslint-disable-next-line
   }, [window])
   
   useEffect(() => {
