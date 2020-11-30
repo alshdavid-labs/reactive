@@ -27,7 +27,8 @@ export const useViewModel: ViewModelHook = (
       return create((ctor as any)())
     }
   // eslint-disable-next-line
-  }, [])
+  }, [window])
+  
   useEffect(() => {
     if (vm.onInit) {
       vm.onInit()

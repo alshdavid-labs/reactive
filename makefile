@@ -6,7 +6,7 @@ clean:
 	rm -r -f dist
 
 build:
-	npx tsc
+	npx rollup -c ./rollup.config.js
 	cp package.json dist
 	cp README.md dist
 

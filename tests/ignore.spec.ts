@@ -1,8 +1,6 @@
-import { firstValueFrom } from '@alshdavid/rxjs'
-import Reactive, { ignore, ignoreInstanceOf } from '../src/index'
+import Reactive from '../src/index'
 
 const VALUE_1 = 'VALUE_1'
-const VALUE_2 = 'VALUE_2'
 
 describe('Dependency Injection', () => {
   it('Should ignore specific object instance', async () => {
@@ -21,7 +19,7 @@ describe('Dependency Injection', () => {
     const foo = new Foo()
     const $Bar = Reactive.create(Bar)
 
-    ignore(foo)
+    Reactive.ignore(foo)
 
     const bar = new $Bar(foo)
 
@@ -48,7 +46,7 @@ describe('Dependency Injection', () => {
     const foo = new Foo()
     const $Bar = Reactive.create(Bar)
 
-    ignoreInstanceOf(Foo)
+    Reactive.ignoreInstanceOf(Foo)
 
     const bar = new $Bar(foo)
 
@@ -77,7 +75,7 @@ describe('Dependency Injection', () => {
     const foo = new Foo()
     const $Bar = Reactive.create(Bar)
 
-    ignoreInstanceOf(Foobar)
+    Reactive.ignoreInstanceOf(Foobar)
 
     const bar = new $Bar(foo)
 

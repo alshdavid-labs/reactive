@@ -1,5 +1,4 @@
-import { patchInstance } from "./observe-object"
-import { ProxyHandler } from "./proxy-handler"
+import { patchInstance, ProxyHandler } from "./observe-object"
 import { createNodeId } from "./state"
 
 export function patchConstructor<T>(Super: T): T {

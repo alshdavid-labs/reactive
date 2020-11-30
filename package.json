@@ -2,8 +2,25 @@
   "name": "@alshdavid/reactive",
   "version": "1.1.1",
   "description": "Generic object mutation observation",
-  "main": "index.js",
   "types": "index.d.ts",
+  "main": "./index.commonjs.js",
+  "module": "./index.module.js",
+  "exports": {
+    ".": {
+      "module": "./index.commonjs.js",
+      "require": "./index.module.js"
+    },
+    "./react": {
+      "module": "./react/index.module.js",
+      "require": "./react/index.commonjs.js"
+    },
+    "./preact": {
+      "module": "./preact/index.module.js",
+      "require": "./preact/index.commonjs.js"
+    },
+    "./package.json": "./package.json",
+    "./": "./"
+  },
   "author": "David Alsh",
   "license": "MIT",
   "scripts": {
@@ -28,6 +45,8 @@
   "dependencies": {
     "@alshdavid/rxjs": "1.0.5",
     "@babel/core": "^7.12.9",
-    "@babel/preset-env": "^7.12.7"
+    "@babel/preset-env": "^7.12.7",
+    "rollup": "^2.34.0",
+    "rollup-plugin-typescript2": "^0.29.0"
   }
 }

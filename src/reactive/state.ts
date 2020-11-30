@@ -19,17 +19,18 @@ export class State {
   public ignoreList: any[] = []
   public ignoreInstanceOfList: any[] = []
 
-  pushEvent(changeEvent: ChangeEvent) {
+  pushEvent(changeEvent: ChangeEvent): void {
     setTimeout(() => this.onEvent.next(changeEvent))
   }
 
-  isIgnored(target: any) {
+  isIgnored(target: any): boolean {
     for (const item of this.ignoreList) {
       if (target === item) return true
     }
     for (const item of this.ignoreInstanceOfList) {
       if (target instanceof item) return true
     }
+    return false
   }
 }
 

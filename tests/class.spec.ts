@@ -1,10 +1,10 @@
-import { firstValueFrom } from '@alshdavid/rxjs'
+import { firstValueFrom, lastValueFrom, Subject } from '@alshdavid/rxjs'
 import Reactive from '../src/index'
 
 const VALUE_1 = 'VALUE_1'
 const VALUE_2 = 'VALUE_2'
 
-describe('Class', () => {
+fdescribe('Class', () => {
   describe('Top level string', () => {
     it('Should react to top level property', async () => {
       const $Foo = Reactive.create(class Foo {
@@ -138,6 +138,7 @@ describe('Class', () => {
     })
 
     it('Should emit on item delete', async () => {
+      foo.bar.push({ value: VALUE_1 })
       const onValue = firstValueFrom(Reactive.observe(foo))
       foo.bar.splice(0, 1)
 
@@ -148,17 +149,13 @@ describe('Class', () => {
   })
 
   describe('Array (Array<Array<string>>) instance on top level', () => {
-    let foo: Foo;
-    class Foo {
-      bar: Array<Array<string>> = []
-    }
-
-    beforeEach(() => {
-      const $Foo = Reactive.create(Foo)
-      foo = new $Foo()
-    })
-
     it('Should emit on item add', async () => {
+      class Foo {
+        bar: Array<Array<string>> = []
+      }
+      const $Foo = Reactive.create(Foo)
+      const foo = new $Foo()
+
       const onValue = firstValueFrom(Reactive.observe(foo))
       const insert = [VALUE_1]
       foo.bar.push(insert)
@@ -168,8 +165,12 @@ describe('Class', () => {
     })
 
     it('Should emit on item update', async () => {
-      const insert = [VALUE_1]
-      foo.bar.push(insert)
+      class Foo {
+        bar: Array<Array<string>> = [[VALUE_1]]
+      }
+      const $Foo = Reactive.create(Foo)
+      const foo = new $Foo()
+
       const onValue = firstValueFrom(Reactive.observe(foo))
 
       foo.bar[0][0] = VALUE_2
@@ -179,8 +180,13 @@ describe('Class', () => {
     })
 
     it('Should emit on item delete', async () => {
-      const insert = [VALUE_1]
-      foo.bar.push(insert)
+
+      class Foo {
+        bar: Array<Array<string>> = [[VALUE_1]]
+      }
+      const $Foo = Reactive.create(Foo)
+      const foo = new $Foo()
+
       const onValue = firstValueFrom(Reactive.observe(foo))
 
       foo.bar[0].splice(0,1)
@@ -188,6 +194,60 @@ describe('Class', () => {
       expect(await onValue).toBe(undefined)
       expect(foo.bar[0][0]).toEqual(undefined)
       expect(foo.bar[0].length).toEqual(0)
+    })
+  })
+
+  describe('Constructor', () => {
+    it('Should notify of values updated from constructor asynchronously', async () => {
+      const onNumber = new Subject<void>()
+      const subscribe = jest.fn()
+
+      class Foo {
+        value: number = 0
+
+        constructor() {
+          onNumber.subscribe(() => this.value++)
+        }
+      }
+
+      const $Foo = Reactive.create(Foo)
+      const foo = new $Foo()
+
+      const sub = Reactive.observe(foo).subscribe(() => {
+        subscribe()
+        if (foo.value === 2) {
+          onNumber.complete()
+        }
+      })
+
+      setTimeout(() => onNumber.next(), 0)
+      setTimeout(() => onNumber.next(), 100)
+
+      await lastValueFrom(onNumber)
+      expect(subscribe).toBeCalledTimes(2)
+      
+      sub.unsubscribe()
+    })
+  })
+
+  describe('Multiple', () => {
+    it('Should fire the subscription of the correct instance', (done) => {
+      const fooSubscribe = jest.fn()
+      const barSubscribe = jest.fn()
+
+      const foo = Reactive.create({ value: VALUE_1 })      
+      const bar = Reactive.create({ value: VALUE_2 })      
+
+      Reactive.observe(foo).subscribe(fooSubscribe)
+      Reactive.observe(bar).subscribe(barSubscribe)
+
+      bar.value = VALUE_1
+
+      setTimeout(() => {
+        expect(fooSubscribe).toBeCalledTimes(0)
+        expect(barSubscribe).toBeCalledTimes(1)
+        done()
+      }, 200)
     })
   })
 })
