@@ -1,6 +1,6 @@
 {
   "name": "@alshdavid/reactive",
-  "version": "1.2.4",
+  "version": "1.2.6",
   "description": "Generic object mutation observation",
   "types": "index.d.ts",
   "main": "./index.commonjs.js",

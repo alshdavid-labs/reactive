@@ -1,5 +1,5 @@
 
-import { ChangeEventType, createNodeId, KEY, state } from './state'
+import { ChangeEventType, createNodeId, KEY, getState } from './state'
 
 export const proxyObjectInstance = <T>(source: T): T => {
   if (typeof (source as any)[KEY] !== 'undefined') {
@@ -13,7 +13,7 @@ export const proxyObjectInstance = <T>(source: T): T => {
 export const patchInstance = (instance: any, nodes: number[]) => {
   for (const key in instance) {
     if (
-      state.isIgnored(instance[key]) ||
+      getState().isIgnored(instance[key]) ||
       typeof instance[key] !== 'object' ||
       !instance[key] 
     ) {
@@ -51,7 +51,7 @@ export const ProxyHandler = (nodes?: Array<number>): ProxyHandler<any> => {
         target[key] = proxyObjectInstance(value)
         ;(nodes || target[KEY]).push(...target[key][KEY])
 
-        state.pushEvent({ 
+        getState().pushEvent({ 
           type: ChangeEventType.Add,
           node: (nodes || target[KEY])[0],
           childNode: target[key][KEY][0]
@@ -66,7 +66,7 @@ export const ProxyHandler = (nodes?: Array<number>): ProxyHandler<any> => {
         return true  
       }
 
-      state.pushEvent({ 
+      getState().pushEvent({ 
         type: ChangeEventType.Update,
         node: (nodes || target[KEY])[0],
       })
@@ -75,10 +75,12 @@ export const ProxyHandler = (nodes?: Array<number>): ProxyHandler<any> => {
     },
     deleteProperty(target, key) {
       if (target[KEY]) {
-        state.pushEvent({
+        getState().pushEvent({
           type: ChangeEventType.Remove,
           node: (nodes || target[KEY])[0],
-          childNode: target[key][KEY]
+          childNode: (target[key] && target[key][KEY]) 
+            ? target[key][KEY] 
+            : undefined
         })
       }
       delete target[key]

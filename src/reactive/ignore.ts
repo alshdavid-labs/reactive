@@ -1,9 +1,9 @@
-import { state } from './state'
+import { getState } from './state'
 
 export const ignore = (target: any): void => {
-  state.ignoreList.push(target)
+  getState().ignoreList.push(target)
 }
 
 export const ignoreInstanceOf = (target: any): void => {
-  state.ignoreInstanceOfList.push(target)
+  getState().ignoreInstanceOfList.push(target)
 }

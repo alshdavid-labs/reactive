@@ -1,4 +1,5 @@
 import { Subject, Observable } from "@alshdavid/rxjs";
+import { globalObject } from './global'
 
 export enum ChangeEventType {
   Update,
@@ -34,7 +35,12 @@ export class State {
   }
 }
 
-export const state = new State()
+export const getState = (): State => {
+  if (!globalObject['__REACTIVE_STATE_STATE__']) {
+    globalObject['__REACTIVE_STATE_STATE__'] = new State()
+  }
+  return globalObject['__REACTIVE_STATE_STATE__']  
+}
 
 export const createNodeId = (): number => Math.round((Math.random() * 1000000000))
 

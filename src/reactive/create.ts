@@ -1,9 +1,9 @@
 import { proxyObjectInstance } from './observe-object'
 import { patchConstructor } from './patch-constructor'
-import { KEY, state } from './state'
+import { KEY, getState } from './state'
 
 export const create = <T>(source: T): T => {
-  if (state.isIgnored(source)) {
+  if (getState().isIgnored(source)) {
     throw new Error('CannotObserveIgnored')
   } else if (typeof (source as any)[KEY] !== 'undefined') {
     return source
