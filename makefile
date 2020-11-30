@@ -15,3 +15,6 @@ publish:
 
 test:
 	npx jest --passWithNoTests  --coverage
+
+test\:watch:
+	npx jest --passWithNoTests  --watch

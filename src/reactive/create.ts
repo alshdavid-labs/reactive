@@ -3,7 +3,7 @@ import { patchConstructor } from './patch-constructor'
 import { KEY, state } from './state'
 
 export const  create = <T>(source: T): T => {
-  if (state.ignoreList.includes(source)) {
+  if (state.isIgnored(source)) {
     throw new Error('CannotObserveIgnored')
   } else if (typeof (source as any)[KEY] !== 'undefined') {
     return source

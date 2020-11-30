@@ -14,7 +14,7 @@ export const proxyObjectInstance = <T>(source: T): T => {
 export const patchInstance = (instance: any, nodes: number[]) => {
   for (const key in instance) {
     if (
-      state.ignoreList.includes(instance[key]) ||
+      state.isIgnored(instance[key]) ||
       typeof instance[key] !== 'object'  
     ) {
       continue
@@ -27,8 +27,11 @@ export const patchInstance = (instance: any, nodes: number[]) => {
     nodes.push(...instance[key][KEY])
   }
 
+  instance[KEY] = nodes
   Object.defineProperty(instance, KEY, {
     enumerable: false,
-    value: nodes
-  })
+    value: nodes,
+  });
+
+  return instance
 }
