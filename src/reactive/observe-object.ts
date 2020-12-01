@@ -15,7 +15,8 @@ export const patchInstance = (instance: any, nodes: number[]) => {
     if (
       getState().isIgnored(instance[key]) ||
       typeof instance[key] !== 'object' ||
-      !instance[key] 
+      instance[key] === null ||
+      instance[key] === undefined
     ) {
       continue
     } 
@@ -47,7 +48,7 @@ export const ProxyHandler = (nodes?: Array<number>): ProxyHandler<any> => {
         return true
       }
 
-      if (typeof value === 'object') {
+      if (value && typeof value === 'object') {
         target[key] = proxyObjectInstance(value)
         ;(nodes || target[KEY]).push(...target[key][KEY])
 

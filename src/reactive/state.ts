@@ -44,5 +44,5 @@ export const getState = (): State => {
 
 export const createNodeId = (): number => Math.round((Math.random() * 1000000000))
 
-export const KEY = Symbol('__REACTIVE_STATE__')
+export const KEY = '__REACTIVE_STATE__'
 
